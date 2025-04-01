@@ -31,15 +31,17 @@ def get_month_view():
 
 @app.route("/", methods=["GET", "POST"])
 def index():
+    birouri = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    
     if request.method == "POST":
         ziua = request.form["ziua"]
         nume = request.form["nume"]
         birou = int(request.form["birou"])
-
-        # Check if the desk is already booked
+        
         if birou not in bookings[ziua].values():
-            bookings[ziua][nume] = f"Birou {birou}"
-
+            bookings[ziua][nume] = birou
+    
+    return render_template("index.html", bookings=bookings, birouri=birouri)
     days_in_month = get_month_view()
     return render_template("index.html", days_in_month=days_in_month)
 
