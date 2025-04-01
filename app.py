@@ -2,10 +2,10 @@ from flask import Flask, render_template, request
 
 app = Flask(__name__)
 
-# Datele salvate temporar
+# Data saved temporarily
 bookings = {
     "Luni": {},
-    "Marți": {},
+    "Marti": {},
     "Miercuri": {},
     "Joi": {},
     "Vineri": {}
@@ -18,9 +18,11 @@ def index():
         ziua = request.form["ziua"]
         nume = request.form["nume"]
         birou = int(request.form["birou"])
+
         if birou not in bookings[ziua].values():
             bookings[ziua][nume] = birou
+
     return render_template("index.html", bookings=bookings, birouri=birouri)
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True, host="0.0.0.0", port=10000)
