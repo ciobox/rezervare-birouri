@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rezervare birou</title>
 </head>
 <body>
@@ -10,14 +11,14 @@
     <form method="POST">
         <label for="ziua">Alege ziua:</label>
         <select name="ziua">
-            <option>Luni</option>
-            <option>Marți</option>
-            <option>Miercuri</option>
-            <option>Joi</option>
-            <option>Vineri</option>
+            <option value="Luni">Luni</option>
+            <option value="Marti">Marti</option>
+            <option value="Miercuri">Miercuri</option>
+            <option value="Joi">Joi</option>
+            <option value="Vineri">Vineri</option>
         </select><br><br>
 
-        <label for="nume">Numele tău:</label>
+        <label for="nume">Numele tau:</label>
         <select name="nume" required>
             <option value="Cosmin Miscu">Cosmin Miscu</option>
             <option value="Cristina Dimitriu">Cristina Dimitriu</option>
@@ -31,10 +32,10 @@
             <option value="Cristian Ghita">Cristian Ghita</option>
         </select><br><br>
 
-        <label for="birou">Alege biroul:</label>
+        <label for="birou">Alege birou:</label>
         <select name="birou">
             {% for b in birouri %}
-                <option value="{{b}}">{{b}}</option>
+                <option value="{{b}}">Birou {{b}}</option>
             {% endfor %}
         </select><br><br>
 
@@ -42,16 +43,21 @@
     </form>
 
     <h2>Rezervări:</h2>
-    {% for zi, rezervari in bookings.items() %}
-        <h3>{{ zi }}</h3>
-        <ul>
-            {% for nume, birou in rezervari.items() %}
-                <li>{{ nume }} - Birou {{ birou }}</li>
-            {% endfor %}
-            {% if rezervari|length == 0 %}
-                <li>Nicio rezervare</li>
-            {% endif %}
-        </ul>
-    {% endfor %}
+    <div class="calendar">
+        {% for day, info in days_in_month.items() %}
+            <div class="day">
+                <h3>{{ info['name'] }} {{ info['date'] }}</h3>
+                <ul>
+                    {% if info['booked'] %}
+                        {% for nume, birou in info['booked'].items() %}
+                            <li style="color: red">{{ nume }} - {{ birou }}</li>
+                        {% endfor %}
+                    {% else %}
+                        <li style="color: green">Nicio rezervare</li>
+                    {% endif %}
+                </ul>
+            </div>
+        {% endfor %}
+    </div>
 </body>
 </html>
