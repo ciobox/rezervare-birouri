@@ -2,24 +2,91 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rezervare birou</title>
+    <title>Rezervare Birou</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        form {
+            width: 300px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        select, button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        h2 {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .reservations {
+            width: 300px;
+            margin: 0 auto;
+        }
+
+        .reservation-item {
+            padding: 10px;
+            background-color: #f9f9f9;
+            margin: 5px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        .available {
+            background-color: #90EE90; /* Light green */
+        }
+
+        .taken {
+            background-color: #FFCCCB; /* Light red */
+        }
+    </style>
 </head>
 <body>
-    <h1>Programare birou</h1>
+
+    <h1>Programare Birou</h1>
 
     <form method="POST">
         <label for="ziua">Alege ziua:</label>
         <select name="ziua">
-            <option value="Luni">Luni</option>
-            <option value="Marti">Marti</option>
-            <option value="Miercuri">Miercuri</option>
-            <option value="Joi">Joi</option>
-            <option value="Vineri">Vineri</option>
-        </select><br><br>
+            <option>Luni</option>
+            <option>Marti</option>
+            <option>Miercuri</option>
+            <option>Joi</option>
+            <option>Vineri</option>
+        </select>
 
         <label for="nume">Numele tau:</label>
-        <select name="nume" required>
+        <select name="nume">
             <option value="Cosmin Miscu">Cosmin Miscu</option>
             <option value="Cristina Dimitriu">Cristina Dimitriu</option>
             <option value="Ioana Maracine">Ioana Maracine</option>
@@ -30,34 +97,41 @@
             <option value="Tudor Topolniceanu">Tudor Topolniceanu</option>
             <option value="Catalin Dragut">Catalin Dragut</option>
             <option value="Cristian Ghita">Cristian Ghita</option>
-        </select><br><br>
+        </select>
 
         <label for="birou">Alege birou:</label>
         <select name="birou">
-            {% for b in birouri %}
-                <option value="{{b}}">Birou {{b}}</option>
-            {% endfor %}
-        </select><br><br>
+            <option value="1">Birou 1</option>
+            <option value="2">Birou 2</option>
+            <option value="3">Birou 3</option>
+            <option value="4">Birou 4</option>
+            <option value="5">Birou 5</option>
+            <option value="6">Birou 6</option>
+            <option value="7">Birou 7</option>
+            <option value="8">Birou 8</option>
+            <option value="9">Birou 9</option>
+            <option value="10">Birou 10</option>
+        </select>
 
-        <button type="submit">Rezervă</button>
+        <button type="submit">Rezerva</button>
     </form>
 
     <h2>Rezervări:</h2>
-    <div class="calendar">
-        {% for day, info in days_in_month.items() %}
-            <div class="day">
-                <h3>{{ info['name'] }} {{ info['date'] }}</h3>
-                <ul>
-                    {% if info['booked'] %}
-                        {% for nume, birou in info['booked'].items() %}
-                            <li style="color: red">{{ nume }} - {{ birou }}</li>
-                        {% endfor %}
-                    {% else %}
-                        <li style="color: green">Nicio rezervare</li>
-                    {% endif %}
-                </ul>
+    <div class="reservations">
+        {% for ziua, rezervari in bookings.items() %}
+            <div class="reservation-item">
+                <h3>{{ ziua }}</h3>
+                {% for nume, birou in rezervari.items() %}
+                    <p class="{{ 'taken' if birou != 0 else 'available' }}">
+                        {{ nume }} - Birou {{ birou if birou != 0 else 'liber' }}
+                    </p>
+                {% endfor %}
+                {% if rezervari|length == 0 %}
+                    <p class="available">Nicio rezervare</p>
+                {% endif %}
             </div>
         {% endfor %}
     </div>
+
 </body>
 </html>
