@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Rezervare birou</title>
+</head>
+<body>
+    <h1>Programare birou</h1>
+
+    <form method="POST">
+        <label for="ziua">Alege ziua:</label>
+        <select name="ziua">
+            <option>Luni</option>
+            <option>Marți</option>
+            <option>Miercuri</option>
+            <option>Joi</option>
+            <option>Vineri</option>
+        </select><br><br>
+
+        <label for="nume">Numele tău:</label>
+        <input type="text" name="nume" required><br><br>
+
+        <label for="birou">Alege biroul:</label>
+        <select name="birou">
+            {% for b in birouri %}
+                <option value="{{b}}">{{b}}</option>
+            {% endfor %}
+        </select><br><br>
+
+        <button type="submit">Rezervă</button>
+    </form>
+
+    <h2>Rezervări:</h2>
+    {% for zi, rezervari in bookings.items() %}
+        <h3>{{ zi }}</h3>
+        <ul>
+            {% for nume, birou in rezervari.items() %}
+                <li>{{ nume }} - Birou {{ birou }}</li>
+            {% endfor %}
+            {% if rezervari|length == 0 %}
+                <li>Nicio rezervare</li>
+            {% endif %}
+        </ul>
+    {% endfor %}
+</body>
+</html>
