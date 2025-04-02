@@ -10,35 +10,38 @@
     <svg id="floor-plan" width="1200" height="900">
 
         <!-- 🟢 Exact Floor Shape (traced from your drawing) -->
-        <path d="
-    M 100 100
-    L 270 100
-    L 270 160
-    L 250 160
-    L 250 200
-    L 290 200
-    L 290 180
-    L 385 180
-    L 385 200
-    L 405 200
-    L 405 351
-    L 385 351
-    L 385 371
-    L 325 371
-    L 325 446
-    L 99 446
-    L 99 386
-    L 139 386
-    L 139 346
-    L 99 346
-    L 99 195
-    L 139 195
-    L 139 155
-    L 99 155
-    L 99 95
-    Z
-" fill="#ddd" stroke="#333" stroke-width="2"/>
-
+        <svg id="floor-plan" width="1200" height="1200">
+            <g transform="scale(1.5)">
+                <path d="
+                    M 100 100
+                    L 270 100
+                    L 270 160
+                    L 250 160
+                    L 250 200
+                    L 290 200
+                    L 290 180
+                    L 385 180
+                    L 385 200
+                    L 405 200
+                    L 405 351
+                    L 385 351
+                    L 385 371
+                    L 325 371
+                    L 325 446
+                    L 99 446
+                    L 99 386
+                    L 139 386
+                    L 139 346
+                    L 99 346
+                    L 99 195
+                    L 139 195
+                    L 139 155
+                    L 99 155
+                    L 99 95
+                    Z
+                " fill="#ddd" stroke="#333" stroke-width="2"/>
+            </g>
+        </svg>
         <!-- 🔥 Desks placed exactly as per drawing -->
         {% set desks = [
             {"id": 1, "x": 250, "y": 250},
