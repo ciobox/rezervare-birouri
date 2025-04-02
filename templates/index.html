@@ -7,48 +7,59 @@
 </head>
 <body>
 
-    <svg id="floor-plan" width="1200" height="800">
-        <!-- ✅ Traced Floor Shape -->
+    <svg id="floor-plan" width="1200" height="900">
+
+        <!-- 🟢 Exact Floor Shape (traced from your drawing) -->
         <path d="
             M 100 100
-            L 800 100
-            L 800 200
-            L 1000 200
-            L 1000 700
-            L 100 700
-            Z
-            M 400 100
-            L 400 200
-            L 500 200
-            L 500 100
+            L 100 420
+            L 180 420
+            L 180 460
+            L 240 460
+            L 240 500
+            L 180 500
+            L 180 700
+            L 900 700
+            L 900 600
+            L 960 600
+            L 960 540
+            L 1000 540
+            L 1000 480
+            L 960 480
+            L 960 400
+            L 900 400
+            L 900 100
             Z
         " fill="#ddd" stroke="#333" stroke-width="2"/>
 
-        <!-- ✅ Desks exactly where you drew -->
+        <!-- 🔥 Desks placed exactly as per drawing -->
         {% set desks = [
-            {"id": 1, "x": 200, "y": 250},
+            {"id": 1, "x": 250, "y": 250},
             {"id": 2, "x": 350, "y": 250},
-            {"id": 3, "x": 500, "y": 250},
-            {"id": 4, "x": 650, "y": 250},
-            {"id": 5, "x": 200, "y": 450},
-            {"id": 6, "x": 350, "y": 450},
-            {"id": 7, "x": 500, "y": 450},
-            {"id": 8, "x": 650, "y": 450},
-            {"id": 9, "x": 350, "y": 600},
-            {"id": 10, "x": 500, "y": 600},
+            {"id": 3, "x": 250, "y": 320},
+            {"id": 4, "x": 350, "y": 320},
+            {"id": 5, "x": 500, "y": 250},
+            {"id": 6, "x": 600, "y": 250},
+            {"id": 7, "x": 700, "y": 250},
+            {"id": 8, "x": 500, "y": 320},
+            {"id": 9, "x": 600, "y": 320},
+            {"id": 10, "x": 700, "y": 320},
         ] %}
 
         {% for desk in desks %}
-            {% set row = 0 if desk.id <= 8 else 1 %}
-            {% set radius = 18 %}
+            {% set row = 0 if desk.id <= 7 else 1 %}
+            {% set radius = 16 %}
             {% set cy = desk.y - radius/2 if row==0 else desk.y + 50 + radius/2 %}
             <rect id="desk{{ desk.id }}" class="desk" x="{{ desk.x }}" y="{{ desk.y }}" width="80" height="50"></rect>
             <circle id="desk{{ desk.id }}-status" class="status-circle"
                 cx="{{ desk.x + 40 }}"
                 cy="{{ cy }}"
                 r="{{ radius }}"></circle>
-            <text x="{{ desk.x + 30 }}" y="{{ desk.y + 30 }}" fill="#fff" font-size="16"> {{ desk.id }} </text>
+            <text x="{{ desk.x + 30 }}" y="{{ desk.y + 30 }}" fill="#fff" font-size="14"> {{ desk.id }} </text>
         {% endfor %}
+
+        <!-- 🚪 Door marker -->
+        <text x="110" y="95" font-size="14" fill="#333">DOOR</text>
     </svg>
 
     <div id="reservation-form">
