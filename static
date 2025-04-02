@@ -1,9 +1,0 @@
-/your_project_folder
-    /static
-        /css
-            style.css  <-- Create this file
-    /templates
-        index.html
-    app.py
-    requirements.txt
-    render.yaml
