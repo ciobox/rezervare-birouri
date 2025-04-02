@@ -41,6 +41,10 @@
         </select><br><br>
 
         <button type="submit">Rezerva</button>
+        
+        {% if error %}
+        <p style="color:red;">{{ error }}</p>
+        {% endif %}
     </form>
 
     <h2>Calendarul Birourilor:</h2>
