@@ -1,53 +1,36 @@
 body {
-    background-color: #f2f2f2;
     text-align: center;
     font-family: Arial, sans-serif;
-}
-
-h1, h2 {
-    color: #333;
-}
-
-button {
-    background-color: #4CAF50;
-    color: white;
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-}
-
-button:hover {
-    background-color: #45a049;
-}
-
-.desk-layout {
+  }
+  
+  .office-layout {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 30px;
-}
-
-.row {
+    margin-top: 20px;
+  }
+  
+  .row {
     display: flex;
-}
-
-.desk {
-    width: 60px;
-    height: 60px;
+    justify-content: center;
+  }
+  
+  .desk {
+    width: 50px;
+    height: 50px;
     margin: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-weight: bold;
-    border-radius: 5px;
-}
-
-.free {
     background-color: green;
     color: white;
-}
-
-.booked {
+    border-radius: 5px;
+  }
+  
+  .desk.booked {
     background-color: red;
-    color: white;
-}
+  }
+  
+  .spacer {
+    height: 30px;
+  }
