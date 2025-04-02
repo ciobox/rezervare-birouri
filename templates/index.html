@@ -1,56 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Rezervare Birou</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <meta charset="UTF-8">
+    <title>Desk Booking</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-  <h1>Programare Birou</h1>
+    <svg id="floor-plan" width="600" height="400" style="background-color: #ddd;">
+        <!-- Example floor plan layout -->
+        <rect id="desk1" class="desk" x="50" y="50" width="80" height="50"></rect>
+        <circle id="desk1-status" class="status-circle" cx="90" cy="75" r="8"></circle>
 
-  <form method="POST">
-    <label>Alege ziua:</label>
-    <select name="ziua">
-      {% for day, info in days_in_month.items() %}
-        <option value="{{ day }}">{{ info.date }}</option>
-      {% endfor %}
-    </select><br><br>
+        <rect id="desk2" class="desk" x="150" y="50" width="80" height="50"></rect>
+        <circle id="desk2-status" class="status-circle" cx="190" cy="75" r="8"></circle>
 
-    <label>Numele tău:</label>
-    <select name="nume">
-      <option value="Cosmin Miscu">Cosmin Miscu</option>
-      <option value="Cristina Dimitriu">Cristina Dimitriu</option>
-      <option value="Ioana Maracine">Ioana Maracine</option>
-      <option value="Alexandra Mustata">Alexandra Mustata</option>
-      <option value="Maria Prodan">Maria Prodan</option>
-      <option value="Mihaela Tanase">Mihaela Tanase</option>
-      <option value="Radu Ciobotaru">Radu Ciobotaru</option>
-      <option value="Tudor Topolniceanu">Tudor Topolniceanu</option>
-      <option value="Catalin Dragut">Catalin Dragut</option>
-      <option value="Cristian Ghita">Cristian Ghita</option>
-    </select><br><br>
+        <rect id="desk3" class="desk" x="250" y="50" width="80" height="50"></rect>
+        <circle id="desk3-status" class="status-circle" cx="290" cy="75" r="8"></circle>
 
-    <label>Alege birou:</label>
-    <select name="birou">
-      {% for b in birouri %}
-        <option value="{{ b }}">{{ b }}</option>
-      {% endfor %}
-    </select><br><br>
+        <rect id="desk4" class="desk" x="50" y="150" width="80" height="50"></rect>
+        <circle id="desk4-status" class="status-circle" cx="90" cy="175" r="8"></circle>
 
-    <button type="submit">Rezervă</button>
-  </form>
+        <rect id="desk5" class="desk" x="150" y="150" width="80" height="50"></rect>
+        <circle id="desk5-status" class="status-circle" cx="190" cy="175" r="8"></circle>
 
-  {% if error %}
-    <p style="color:red;">{{ error }}</p>
-  {% endif %}
+        <rect id="desk6" class="desk" x="250" y="150" width="80" height="50"></rect>
+        <circle id="desk6-status" class="status-circle" cx="290" cy="175" r="8"></circle>
+    </svg>
 
-  <h2>Harta Birourilor:</h2>
-  <div class="office-layout">
-    {% for b in birouri %}
-      <div id="desk-{{ b }}" class="desk {% if b in occupied_desks %}booked{% else %}free{% endif %}">
-        {{ b }}
-      </div>
-    {% endfor %}
-  </div>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>
