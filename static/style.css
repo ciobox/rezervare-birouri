@@ -163,3 +163,40 @@ body {
     background-color: green;
     color: white;
 }
+
+.desk-layout {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.row {
+    display: flex;
+    margin: 10px 0;
+}
+
+.desk {
+    width: 60px;
+    height: 60px;
+    margin: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    border-radius: 5px;
+    border: 2px solid #333;
+}
+
+.booked {
+    background-color: red;
+    color: white;
+}
+
+.free {
+    background-color: green;
+    color: white;
+}
+
+.separator {
+    height: 30px;
+}

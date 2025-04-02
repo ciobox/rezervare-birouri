@@ -42,6 +42,31 @@
         <button type="submit">Rezervă</button>
     </form>
 
+    <h2>Harta Birourilor:</h2>
+    <div class="desk-layout">
+        <div class="row">
+            <div class="desk {% if 1 in occupied_desks %}booked{% else %}free{% endif %}">1</div>
+            <div class="desk {% if 2 in occupied_desks %}booked{% else %}free{% endif %}">2</div>
+        </div>
+        <div class="row">
+            <div class="desk {% if 3 in occupied_desks %}booked{% else %}free{% endif %}">3</div>
+            <div class="desk {% if 4 in occupied_desks %}booked{% else %}free{% endif %}">4</div>
+        </div>
+        <div class="row separator"></div> <!-- spațiu între blocuri -->
+        <div class="row">
+            <div class="desk {% if 5 in occupied_desks %}booked{% else %}free{% endif %}">5</div>
+            <div class="desk {% if 6 in occupied_desks %}booked{% else %}free{% endif %}">6</div>
+        </div>
+        <div class="row">
+            <div class="desk {% if 7 in occupied_desks %}booked{% else %}free{% endif %}">7</div>
+            <div class="desk {% if 8 in occupied_desks %}booked{% else %}free{% endif %}">8</div>
+        </div>
+        <div class="row">
+            <div class="desk {% if 9 in occupied_desks %}booked{% else %}free{% endif %}">9</div>
+            <div class="desk {% if 10 in occupied_desks %}booked{% else %}free{% endif %}">10</div>
+        </div>
+    </div>
+    
     {% if error %}
     <p style="color: red;">{{ error }}</p>
     {% endif %}

@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request
 import datetime
+return render_template("index.html", bookings=bookings, birouri=birouri, days_in_month=days_in_month_view, occupied_desks=occupied_desks)
 
 app = Flask(__name__)
 
@@ -56,6 +57,10 @@ def index():
         occupied_desks=occupied_desks
     )
 
+occupied_desks = []
+for zi in bookings:
+    for nume, birou in bookings[zi].items():
+        occupied_desks.append(birou)
 
 if __name__ == "__main__":
     app.run(debug=True, host="0.0.0.0", port=10000)
