@@ -17,10 +17,6 @@ body {
     margin-top: 10px;
   }
   
-  button:hover {
-    background-color: #45a049;
-  }
-  
   .office-layout {
     position: relative;
     width: 500px;
@@ -51,14 +47,14 @@ body {
     background-color: red;
   }
   
-  /* Poziționare exactă birouri (exemplu, tu poți ajusta în funcție de desen) */
-  #desk-1 { top: 30px; left: 50px; }
-  #desk-2 { top: 30px; left: 150px; }
-  #desk-3 { top: 100px; left: 50px; }
-  #desk-4 { top: 100px; left: 150px; }
-  #desk-5 { top: 250px; left: 50px; }
-  #desk-6 { top: 250px; left: 150px; }
-  #desk-7 { top: 320px; left: 50px; }
-  #desk-8 { top: 320px; left: 150px; }
-  #desk-9 { top: 390px; left: 50px; }
-  #desk-10 { top: 390px; left: 150px; }
+  /* Poziții exacte după desen */
+  #desk-1 { top: 30px; left: 100px; }
+  #desk-2 { top: 30px; left: 200px; }
+  #desk-3 { top: 100px; left: 100px; }
+  #desk-4 { top: 100px; left: 200px; }
+  #desk-5 { top: 250px; left: 100px; }
+  #desk-6 { top: 250px; left: 200px; }
+  #desk-7 { top: 320px; left: 100px; }
+  #desk-8 { top: 320px; left: 200px; }
+  #desk-9 { top: 390px; left: 100px; }
+  #desk-10 { top: 390px; left: 200px; }
