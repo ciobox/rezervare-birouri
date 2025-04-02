@@ -47,7 +47,8 @@ def index():
         if birou in bookings[ziua].values():
             error = "Birou deja rezervat!"
         else:
-            bookings[ziua][nume] = birou
+            days_in_month_view = get_month_view()
+            return render_template("index.html", bookings=bookings, birouri=birouri, days_in_month=days_in_month_view, error="Birou deja rezervat!")
 
     days_in_month_view = get_month_view()
     return render_template("index.html", bookings=bookings, birouri=birouri, days_in_month=days_in_month_view, error=error)
