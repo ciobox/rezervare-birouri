@@ -1,18 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Rezervare Birou</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
+
 <body>
     <h1>Programare Birou</h1>
 
     <form method="POST">
-        <label for="ziua">Alege data:</label>
-        <select name="ziua" required>
-            {% for day, info in days_in_month.items() %}
-                <option value="{{ info.date }}">{{ info.date }}</option>
+        <label for="ziua">Alege ziua:</label>
+        <select name="ziua">
+            {% for day in days_in_month.items() %}
+            <option value="{{ day[1]['name'] }}">{{ day[1]['date'] }}</option>
             {% endfor %}
         </select><br><br>
 
@@ -31,9 +33,9 @@
         </select><br><br>
 
         <label for="birou">Alege biroul:</label>
-        <select name="birou" required>
+        <select name="birou">
             {% for b in birouri %}
-                <option value="{{ b }}">{{ b }}</option>
+            <option value="{{ b }}">{{ b }}</option>
             {% endfor %}
         </select><br><br>
 
@@ -41,26 +43,47 @@
     </form>
 
     {% if error %}
-        <p style="color: red;">{{ error }}</p>
+    <p style="color: red;">{{ error }}</p>
     {% endif %}
 
-    <h2>Calendarul Birourilor:</h2>
-    <div class="calendar">
-        {% for day, info in days_in_month.items() %}
-            <div style="background-color: {% if info.booked %}red{% else %}green{% endif %}; margin: 5px; padding: 10px;">
-                <strong>{{ info.date }}</strong><br>
-                {% if info.booked %}
-                    Ocupat de:
-                    <ul>
-                        {% for name, birou in info.booked.items() %}
-                            <li>{{ name }} - Birou {{ birou }}</li>
-                        {% endfor %}
-                    </ul>
-                {% else %}
-                    Birou liber
-                {% endif %}
+    <h2>Harta Birourilor:</h2>
+    <div class="desk-layout">
+        <div class="row">
+            {% for i in [1, 2] %}
+            <div class="desk {% if i in occupied_desks %}booked{% else %}free{% endif %}">
+                {{ i }}
             </div>
-        {% endfor %}
+            {% endfor %}
+        </div>
+        <div class="row">
+            {% for i in [3, 4] %}
+            <div class="desk {% if i in occupied_desks %}booked{% else %}free{% endif %}">
+                {{ i }}
+            </div>
+            {% endfor %}
+        </div>
+        <div class="row">
+            {% for i in [5, 6] %}
+            <div class="desk {% if i in occupied_desks %}booked{% else %}free{% endif %}">
+                {{ i }}
+            </div>
+            {% endfor %}
+        </div>
+        <div class="row">
+            {% for i in [7, 8] %}
+            <div class="desk {% if i in occupied_desks %}booked{% else %}free{% endif %}">
+                {{ i }}
+            </div>
+            {% endfor %}
+        </div>
+        <div class="row">
+            {% for i in [9, 10] %}
+            <div class="desk {% if i in occupied_desks %}booked{% else %}free{% endif %}">
+                {{ i }}
+            </div>
+            {% endfor %}
+        </div>
     </div>
 </body>
+
 </html>
