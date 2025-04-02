@@ -7,10 +7,29 @@
 </head>
 <body>
 
-    <svg id="floor-plan" width="600" height="400" style="background-color: #ddd;">
-        {% for i in range(1, 11) %}
-            <rect id="desk{{ i }}" class="desk" x="{{ 50 + ((i-1)%5)*100 }}" y="{{ 50 + (0 if i<=5 else 150) }}" width="80" height="50"></rect>
-            <circle id="desk{{ i }}-status" class="status-circle" cx="{{ 90 + ((i-1)%5)*100 }}" cy="{{ 75 + (0 if i<=5 else 150) }}" r="8"></circle>
+    <svg id="floor-plan" width="900" height="500">
+        <!-- LEFT BLOCK (4 desks) -->
+        {% for i in range(1, 5) %}
+            {% set row = 0 if i <= 2 else 1 %}
+            {% set col = (i-1)%2 %}
+            <rect id="desk{{ i }}" class="desk" x="{{ 50 + col*150 }}" y="{{ 100 + row*150 }}" width="120" height="70"></rect>
+            <circle id="desk{{ i }}-status" class="status-circle"
+                cx="{{ 110 + col*150 }}"
+                cy="{{ 90 if row==0 else 230 }}"
+                r="12"></circle>
+            <text x="{{ 90 + col*150 }}" y="{{ 140 + row*150 }}" fill="#fff" font-size="20"> {{ i }} </text>
+        {% endfor %}
+
+        <!-- RIGHT BLOCK (6 desks) -->
+        {% for i in range(5, 11) %}
+            {% set row = 0 if (i-5) < 3 else 1 %}
+            {% set col = (i-5)%3 %}
+            <rect id="desk{{ i }}" class="desk" x="{{ 400 + col*150 }}" y="{{ 100 + row*150 }}" width="120" height="70"></rect>
+            <circle id="desk{{ i }}-status" class="status-circle"
+                cx="{{ 460 + col*150 }}"
+                cy="{{ 90 if row==0 else 230 }}"
+                r="12"></circle>
+            <text x="{{ 440 + col*150 }}" y="{{ 140 + row*150 }}" fill="#fff" font-size="20"> {{ i }} </text>
         {% endfor %}
     </svg>
 

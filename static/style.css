@@ -5,11 +5,13 @@ body {
     padding: 0;
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: center;
+    gap: 20px;
 }
 
 #floor-plan {
     margin-top: 30px;
+    background-color: #ddd;
 }
 
 .desk {
@@ -30,10 +32,11 @@ body {
 }
 
 #reservation-form {
-    margin-top: 50px;
+    margin-top: 30px;
     background: #fff;
     padding: 20px;
     border-radius: 8px;
+    height: fit-content;
 }
 
 form input, form select {
