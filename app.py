@@ -3,14 +3,16 @@ import datetime
 
 app = Flask(__name__)
 
-# Desk booking data
+# Desk booking data (this should be dynamic, possibly from a database)
 bookings = {
-    "Luni": {1: "Radu Ciobotaru - Birou 4", 2: "Maria Prodan - Birou 1", 3: "Cosmin Miscu - Birou 6"},
+    "Luni": {"Radu Ciobotaru - Birou 4": 1, "Maria Prodan - Birou 1": 2, "Cosmin Miscu - Birou 6": 3},
     "Marti": {},
     "Miercuri": {},
     "Joi": {},
-    "Vineri": {1: "Cosmin Miscu - Birou 1"}
+    "Vineri": {"Cosmin Miscu - Birou 1": 1}
 }
+
+birouri = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
 # Current date
 today = datetime.date.today()
@@ -23,28 +25,31 @@ def get_month_view():
         try:
             day_date = datetime.date(today.year, today.month, day)
             day_name = day_date.strftime("%A")
-            days_in_month[day] = {"date": day_date, "name": day_name, "booked": bookings.get(day_name, {})}
+            days_in_month[day] = {
+                "date": day_date,
+                "name": day_name,
+                "booked": bookings.get(day_name, {})
+            }
         except ValueError:
             break  # If the day exceeds the month's length, break out
     return days_in_month
 
-
 @app.route("/", methods=["GET", "POST"])
 def index():
-    birouri = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-    
     if request.method == "POST":
         ziua = request.form["ziua"]
         nume = request.form["nume"]
         birou = int(request.form["birou"])
-        
+
+        # Book the desk if it's not already booked
         if birou not in bookings[ziua].values():
             bookings[ziua][nume] = birou
-    
-    return render_template("index.html", bookings=bookings, birouri=birouri)
-    days_in_month = get_month_view()
-    return render_template("index.html", days_in_month=days_in_month)
+        else:
+            return render_template("index.html", bookings=bookings, birouri=birouri, error="Birou deja rezervat!")
 
+    # Get the month view
+    days_in_month_view = get_month_view()
+    return render_template("index.html", bookings=bookings, birouri=birouri, days_in_month=days_in_month_view)
 
 if __name__ == "__main__":
     app.run(debug=True, host="0.0.0.0", port=10000)
