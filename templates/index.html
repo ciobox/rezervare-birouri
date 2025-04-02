@@ -3,24 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <title>Rezervare Birou</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
-
     <h1>Programare Birou</h1>
 
     <form method="POST">
-        <label for="ziua">Alege ziua:</label>
-        <select name="ziua">
-            <option>Luni</option>
-            <option>Marti</option>
-            <option>Miercuri</option>
-            <option>Joi</option>
-            <option>Vineri</option>
+        <label for="ziua">Alege data:</label>
+        <select name="ziua" required>
+            {% for day, info in days_in_month.items() %}
+                <option value="{{ info.date }}">{{ info.date }}</option>
+            {% endfor %}
         </select><br><br>
 
-        <label for="nume">Numele tau:</label>
-        <select name="nume">
+        <label for="nume">Numele tău:</label>
+        <select name="nume" required>
             <option value="Cosmin Miscu">Cosmin Miscu</option>
             <option value="Cristina Dimitriu">Cristina Dimitriu</option>
             <option value="Ioana Maracine">Ioana Maracine</option>
@@ -33,37 +30,37 @@
             <option value="Cristian Ghita">Cristian Ghita</option>
         </select><br><br>
 
-        <label for="birou">Alege birou:</label>
-        <select name="birou">
-            {% for birou in birouri %}
-                <option value="{{ birou }}">{{ birou }}</option>
+        <label for="birou">Alege biroul:</label>
+        <select name="birou" required>
+            {% for b in birouri %}
+                <option value="{{ b }}">{{ b }}</option>
             {% endfor %}
         </select><br><br>
 
-        <button type="submit">Rezerva</button>
-        
-        {% if error %}
-        <p style="color:red;">{{ error }}</p>
-        {% endif %}
+        <button type="submit">Rezervă</button>
     </form>
 
-    <h2>Calendarul Birourilor:</h2>
+    {% if error %}
+        <p style="color: red;">{{ error }}</p>
+    {% endif %}
 
+    <h2>Calendarul Birourilor:</h2>
     <div class="calendar">
         {% for day, info in days_in_month.items() %}
-            <div class="day {% if info['booked'] %} booked {% else %} available {% endif %}">
-                <h4>{{ info['date'] }}</h4>
-                {% if info['booked'] %}
-                    <p>Birou ocupat:</p>
-                    {% for name, birou in info['booked'].items() %}
-                        <p>{{ name }} - Birou {{ birou }}</p>
-                    {% endfor %}
+            <div style="background-color: {% if info.booked %}red{% else %}green{% endif %}; margin: 5px; padding: 10px;">
+                <strong>{{ info.date }}</strong><br>
+                {% if info.booked %}
+                    Ocupat de:
+                    <ul>
+                        {% for name, birou in info.booked.items() %}
+                            <li>{{ name }} - Birou {{ birou }}</li>
+                        {% endfor %}
+                    </ul>
                 {% else %}
-                    <p>Birou liber</p>
+                    Birou liber
                 {% endif %}
             </div>
         {% endfor %}
     </div>
-
 </body>
 </html>
