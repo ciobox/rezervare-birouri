@@ -6,10 +6,9 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-
     <svg id="floor-plan" width="1200" height="900">
 
-        <!-- 🟢 Exact Floor Shape (traced from your drawing) -->
+        <!-- Floor Shape -->
         <g transform="translate(0, -100) scale(2.0)">
             <path d="
                 M 100 100
@@ -40,32 +39,47 @@
                 Z
             " fill="#ddd" stroke="#333" stroke-width="2"/>
         </g>
-
-        <!-- 🔥 Desks placed exactly as per drawing -->
-        {% set desks = [
-            {"id": 1, "x": 250, "y": 250},
-            {"id": 2, "x": 350, "y": 250},
-            {"id": 3, "x": 250, "y": 320},
-            {"id": 4, "x": 350, "y": 320},
-            {"id": 5, "x": 500, "y": 250},
-            {"id": 6, "x": 600, "y": 250},
-            {"id": 7, "x": 700, "y": 250},
-            {"id": 8, "x": 500, "y": 320},
-            {"id": 9, "x": 600, "y": 320},
-            {"id": 10, "x": 700, "y": 320},
-        ] %}
-
-        {% for desk in desks %}
-            {% set row = 0 if desk.id <= 7 else 1 %}
+    
+        <!-- Desks -->
+        {% set desk_width = 100 %}
+        {% set desk_height = 60 %}
+        {% set left_x = 100 %}
+        {% set right_x = 800 %}
+    
+        <!-- Left Wall Desks (1-4) -->
+        {% for i in range(1, 5) %}
+            {% set row = 0 if i <= 2 else 1 %}
+            {% set y = 200 + (row * desk_height) %}
+            {% set x = left_x %}
             {% set radius = 16 %}
-            {% set cy = desk.y - radius/2 if row==0 else desk.y + 50 + radius/2 %}
-            <rect id="desk{{ desk.id }}" class="desk" x="{{ desk.x }}" y="{{ desk.y }}" width="80" height="50"></rect>
-            <circle id="desk{{ desk.id }}-status" class="status-circle"
-                cx="{{ desk.x + 40 }}"
+            {% set cy = y + desk_height + radius/2 if i in [3, 4] else y - radius/2 %}
+            <rect id="desk{{ i }}" class="desk" x="{{ x }}" y="{{ y }}" width="{{ desk_width }}" height="{{ desk_height }}"></rect>
+            <circle id="desk{{ i }}-status" class="status-circle"
+                cx="{{ x + desk_width/2 }}"
                 cy="{{ cy }}"
                 r="{{ radius }}"></circle>
-            <text x="{{ desk.x + 30 }}" y="{{ desk.y + 30 }}" fill="#fff" font-size="14"> {{ desk.id }} </text>
+            <text x="{{ x + desk_width/2 }}" y="{{ y + desk_height/2 + 5 }}" fill="#fff" font-size="14" text-anchor="middle"> {{ i }} </text>
         {% endfor %}
+    
+        <!-- Right Wall Desks (5-10) -->
+        {% for i in range(5, 11) %}
+            {% set row = 0 if (i-5) < 3 else 1 %}
+            {% set col = (i-5) % 3 %}
+            {% set x = right_x %}
+            {% set y = 200 + col * desk_height if row == 0 else 200 + col * desk_height + 10 %}
+            {% set radius = 16 %}
+            {% set cy = y - radius/2 if row == 0 else y + desk_height + radius/2 %}
+            <rect id="desk{{ i }}" class="desk" x="{{ x }}" y="{{ y }}" width="{{ desk_width }}" height="{{ desk_height }}"></rect>
+            <circle id="desk{{ i }}-status" class="status-circle"
+                cx="{{ x + desk_width/2 }}"
+                cy="{{ cy }}"
+                r="{{ radius }}"></circle>
+            <text x="{{ x + desk_width/2 }}" y="{{ y + desk_height/2 + 5 }}" fill="#fff" font-size="14" text-anchor="middle"> {{ i }} </text>
+        {% endfor %}
+    
+        <!-- Door -->
+        <text x="110" y="95" font-size="14" fill="#333">DOOR</text>
+    </svg>
 
         <!-- 🚪 Door marker -->
         <text x="110" y="95" font-size="14" fill="#333">DOOR</text>
