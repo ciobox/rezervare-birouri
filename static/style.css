@@ -4,7 +4,8 @@ body {
     margin: 0;
     padding: 0;
     display: flex;
-    justify-content: center;
+    flex-direction: row;
+    justify-content: space-around;
 }
 
 #floor-plan {
@@ -26,4 +27,17 @@ body {
 
 .status-circle.reserved {
     fill: red;
+}
+
+#reservation-form {
+    margin-top: 50px;
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+form input, form select {
+    display: block;
+    margin: 10px 0;
+    padding: 8px;
 }

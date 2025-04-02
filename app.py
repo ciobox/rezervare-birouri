@@ -2,14 +2,9 @@ from flask import Flask, render_template, jsonify, request
 
 app = Flask(__name__)
 
-# Simple in-memory reservation storage
+# Initial desks data
 desks = {
-    "desk1": False,
-    "desk2": False,
-    "desk3": False,
-    "desk4": False,
-    "desk5": False,
-    "desk6": False,
+    f"desk{i}": {"reserved": False, "name": "", "date": ""} for i in range(1, 11)
 }
 
 @app.route('/')
@@ -20,11 +15,20 @@ def index():
 def get_desks():
     return jsonify(desks)
 
-@app.route('/api/book/<desk_id>', methods=['POST'])
-def book_desk(desk_id):
+@app.route('/api/book', methods=['POST'])
+def book_desk():
+    data = request.json
+    desk_id = data.get('desk')
+    name = data.get('name')
+    date = data.get('date')
+
     if desk_id in desks:
-        desks[desk_id] = not desks[desk_id]  # Toggle
-        return jsonify({"status": "success", "reserved": desks[desk_id]})
+        desks[desk_id] = {
+            "reserved": True,
+            "name": name,
+            "date": date
+        }
+        return jsonify({"status": "success"})
     return jsonify({"status": "error", "message": "Desk not found"}), 404
 
 if __name__ == '__main__':

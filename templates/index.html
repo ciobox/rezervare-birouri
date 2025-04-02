@@ -6,26 +6,39 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
+
     <svg id="floor-plan" width="600" height="400" style="background-color: #ddd;">
-        <!-- Example floor plan layout -->
-        <rect id="desk1" class="desk" x="50" y="50" width="80" height="50"></rect>
-        <circle id="desk1-status" class="status-circle" cx="90" cy="75" r="8"></circle>
-
-        <rect id="desk2" class="desk" x="150" y="50" width="80" height="50"></rect>
-        <circle id="desk2-status" class="status-circle" cx="190" cy="75" r="8"></circle>
-
-        <rect id="desk3" class="desk" x="250" y="50" width="80" height="50"></rect>
-        <circle id="desk3-status" class="status-circle" cx="290" cy="75" r="8"></circle>
-
-        <rect id="desk4" class="desk" x="50" y="150" width="80" height="50"></rect>
-        <circle id="desk4-status" class="status-circle" cx="90" cy="175" r="8"></circle>
-
-        <rect id="desk5" class="desk" x="150" y="150" width="80" height="50"></rect>
-        <circle id="desk5-status" class="status-circle" cx="190" cy="175" r="8"></circle>
-
-        <rect id="desk6" class="desk" x="250" y="150" width="80" height="50"></rect>
-        <circle id="desk6-status" class="status-circle" cx="290" cy="175" r="8"></circle>
+        {% for i in range(1, 11) %}
+            <rect id="desk{{ i }}" class="desk" x="{{ 50 + ((i-1)%5)*100 }}" y="{{ 50 + (0 if i<=5 else 150) }}" width="80" height="50"></rect>
+            <circle id="desk{{ i }}-status" class="status-circle" cx="{{ 90 + ((i-1)%5)*100 }}" cy="{{ 75 + (0 if i<=5 else 150) }}" r="8"></circle>
+        {% endfor %}
     </svg>
+
+    <div id="reservation-form">
+        <h3>Reserve Desk</h3>
+        <form id="reservationForm">
+            <label for="desk">Select Desk:</label>
+            <select id="desk" required>
+                {% for i in range(1, 11) %}
+                    <option value="desk{{ i }}">Desk {{ i }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="name">Your Name:</label>
+            <select id="name" required>
+                <option value="Ana">Ana</option>
+                <option value="Bogdan">Bogdan</option>
+                <option value="Maria">Maria</option>
+                <option value="Andrei">Andrei</option>
+                <option value="Ioana">Ioana</option>
+            </select>
+
+            <label for="date">Select Date:</label>
+            <input type="date" id="date" required>
+
+            <button type="submit">Reserve</button>
+        </form>
+    </div>
 
     <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
